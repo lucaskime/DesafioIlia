@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DesafioIlia.Domain\DesafioIlia.Domain.csproj" />
+    <ProjectReference Include="..\DesafioIlia.Application\DesafioIlia.Application.csproj" />
+    <ProjectReference Include="..\DesafioIlia.Infra.Data\DesafioIlia.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
