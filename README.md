@@ -30,7 +30,7 @@ docker run --name ilia -e POSTGRES_PASSWORD=0b2c539c3e7f85d808df3f2dfe8906b9 -p 
 
 Realizar clone do projeto.
 ```bash
-git clone https://------/
+git clone https://github.com/lucaskime/DesafioIlia.git
 ```
     
 ## API Reference
