@@ -1,4 +1,4 @@
-﻿using DesafioIlia.Domain.Entities.Ponto;
+﻿using DesafioIlia.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

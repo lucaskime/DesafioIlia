@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using DesafioIlia.Application.DTOs;
+using System.Text.Json.Serialization;
 
 namespace DesafioIlia.Ports.API.Models
 {
@@ -9,5 +10,12 @@ namespace DesafioIlia.Ports.API.Models
         /// </summary>
         [JsonPropertyName("dataHora")]
         public string DataHora { get; set; }
+
+        internal MomentoDTO ToDTO()
+        {
+            var dto = new MomentoDTO();
+            dto.DataHora = DataHora;
+            return dto;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace DesafioIlia.Ports.API.Models
         /// </summary>
         /// 
         [JsonPropertyName("horasExcedentes")]
-        public string HorasExcedentes { get; set; }
+        public string HorasExcedentessssssssssss { get; set; }
 
         /// <summary>
         /// Exemplo: 

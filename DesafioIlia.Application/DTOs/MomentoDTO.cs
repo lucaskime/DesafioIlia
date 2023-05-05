@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DesafioIlia.Application.DTOs
 {
@@ -12,6 +7,6 @@ namespace DesafioIlia.Application.DTOs
         [Required(ErrorMessage ="Dia e hora são obrigatórios")]
         [MinLength(19)]
         [MaxLength(19)]
-        public string DataHora { get; set; }
+        public string? DataHora { get; set; }
     }
 }
