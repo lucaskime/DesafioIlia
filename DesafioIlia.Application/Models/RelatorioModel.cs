@@ -1,8 +1,6 @@
-﻿using DesafioIlia.Domain.Entities;
-
-namespace DesafioIlia.Application.DTOs
+﻿namespace DesafioIlia.Application.Models
 {
-    public class RelatorioDTO
+    public class RelatorioModel
     {
         public string Mes { get; set; }
         public string HorasTrabalhadas { get; set; }

@@ -1,5 +1,6 @@
-﻿using DesafioIlia.Application.Interfaces;
-using DesafioIlia.Ports.API.Models;
+﻿using DesafioIlia.Application.Exceptions;
+using DesafioIlia.Application.Interfaces;
+using DesafioIlia.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioIlia.Ports.API.Controllers
@@ -11,7 +12,10 @@ namespace DesafioIlia.Ports.API.Controllers
     public class PontoController : ControllerBase
     {
         private readonly IPontoService _pontoService;
-
+        /// <summary>
+        /// Controle de Ponto
+        /// </summary>
+        /// <param name="pontoService"></param>
         public PontoController(IPontoService pontoService)
         {
             _pontoService = pontoService;
@@ -37,34 +41,54 @@ namespace DesafioIlia.Ports.API.Controllers
         /// </remarks>
         [HttpPost]
         [Route("v1/batidas")]
-        [ProducesResponseType(typeof(Registro), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(Mensagem), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(Mensagem), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(Mensagem), StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<Registro>> insereBatida(Momento momento)
+        [ProducesResponseType(typeof(RegistroModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status409Conflict)]
+        public async Task<ActionResult> insereBatida(string? momento)
         {
-            if (momento == null)
-                return BadRequest("Campo obrigatório");
-            await _pontoService.AdicionarAsync(momento.ToDTO());
-            return Ok();
+            try
+            {
+                await _pontoService.AdicionarAsync(momento);
+                return new ObjectResult(new RegistroModel()) { StatusCode = StatusCodes.Status201Created };
+            }
+            catch (BadRequestException ex)
+            {
+                return new ObjectResult(new MensagemModel(ex.Message)) { StatusCode = StatusCodes.Status400BadRequest };
+            }
+            catch (ForbiddenException ex)
+            {
+                return new ObjectResult(new MensagemModel(ex.Message)) { StatusCode = StatusCodes.Status403Forbidden };
+            }
+            catch (ConflictException ex)
+            {
+                return new ObjectResult(new MensagemModel(ex.Message)) { StatusCode = StatusCodes.Status409Conflict };
+            }
+
         }
 
         /// <summary>
         /// Folhas de Ponto
         /// </summary>
         /// <param name="mes">2018-08</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("/v1/folhas-de-ponto/{mes}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Mensagem), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(Mensagem), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Relatorio>> geraRelatorioMensal([FromRoute] string mes)
+        [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> geraRelatorioMensal([FromRoute] string? mes)
         {
-            if (mes == null)
-                return BadRequest("Campo obrigatório");
-            var data = mes.Split("-");
-            var relatorio = await _pontoService.GerarRelatorioAsync(Convert.ToInt32(data[0]), Convert.ToInt32(data[1]));
-            return Ok(relatorio);
+            try
+            {
+                var relatorio = await _pontoService.GerarRelatorioAsync(mes);
+                return Ok(relatorio);
+            }
+            catch (BadRequestException ex)
+            {
+                return new ObjectResult(new MensagemModel(ex.Message)) { StatusCode = StatusCodes.Status400BadRequest };
+            }
+
         }
     }
 }

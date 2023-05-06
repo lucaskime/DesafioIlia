@@ -1,7 +1,10 @@
-﻿using DesafioIlia.Application.DTOs;
+﻿using DesafioIlia.Application.Models;
 using DesafioIlia.Application.Interfaces;
 using DesafioIlia.Domain.Entities;
 using DesafioIlia.Domain.Interface;
+using DesafioIlia.Application.Exceptions;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace DesafioIlia.Application.Services
 {
@@ -15,26 +18,64 @@ namespace DesafioIlia.Application.Services
                 throw new ArgumentNullException(nameof(pontoRepository));
         }
 
-        public async Task AdicionarAsync(MomentoDTO momento)
+        public async Task AdicionarAsync(string momento)
         {
-            var valor = new Registro(Convert.ToDateTime(momento.DataHora).ToUniversalTime());
+            // formato | vazio | 4 horaris por dia | fds não pode | horario igual
+            if (string.IsNullOrWhiteSpace(momento))
+                throw new BadRequestException("Não pode vazio");
+
+            if (!DateTime.TryParseExact(momento, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var dataHora))
+            {
+                throw new BadRequestException("Data inválida");
+            }
+
+            var registro = dataHora.ToUniversalTime();
+            var registrosDoDia = await _pontoRepository.ConsultarAsync(registro.Year, registro.Month, registro.Day);
+
+            if (registrosDoDia.Where(w => w.DiaHora == registro).Any())
+            {
+                throw new ConflictException("Não pode data igual");
+            }
+            if (registrosDoDia != null)
+            {
+                if (registrosDoDia.Count >= 4){
+                    throw new ForbiddenException("Pode apenas 4 registros por dia");
+                }
+                if (registrosDoDia.Count == 2)
+                {
+                    if (registro.Subtract(registrosDoDia[1].DiaHora) < new TimeSpan(1,0,0)) 
+                    throw new ForbiddenException("Necessário dar intervalo de 1 hora para almoço");
+                }
+            }
+            var valor = new Registro(Convert.ToDateTime(momento).ToUniversalTime());
             await _pontoRepository.AdicionarAsync(valor);
+
         }
 
-        public Task<RegistroDTO> ConsultarAsync(int ano, int mes, int dia = 0)
+        public async Task<RelatorioModel> GerarRelatorioAsync(string anoMes)
         {
-            throw new NotImplementedException();
-        }
+            if (string.IsNullOrWhiteSpace(anoMes))
+                throw new BadRequestException("Não pode vazio");
 
-        public async Task<RelatorioDTO> GerarRelatorioAsync(int ano, int mes)
-        {
-            var relatorio = new RelatorioDTO();
+            if (!Regex.Match(anoMes, @"^(19[0-9]{2}|20[0-9]{2}|2100)-(0[1-9]|1[0-2])$").Success)
+            {
+                throw new BadRequestException("Data inválida");
+            }
+
+            var anoMesSplit = anoMes.Split('-');
+            int ano = Convert.ToInt16(anoMesSplit[0]);
+            int mes = Convert.ToInt16(anoMesSplit[1]); 
+
+            var relatorio = new RelatorioModel();
 
             var registros = await _pontoRepository.ConsultarAsync(ano, mes);
             var horarios = registros.Select(s => s.DiaHora).Order().ToList();
             var horasDevidas = TimeSpan.FromHours(CalcularDiasUteis(ano, mes) * 8);
             var horasTrabalhadas = CalcularTempoTrabalhado(horarios);
+
+            // Calculo é de horas excedentes e não diferença de horas. Caso valor negativo, zerar.
             var horasExcedentes = horasTrabalhadas - horasDevidas;
+            horasExcedentes = (horasExcedentes > TimeSpan.Zero ? horasExcedentes : TimeSpan.Zero);
 
             relatorio.Mes = $"{ano.ToString("0000")}-{mes.ToString("00")}";
             relatorio.HorasDevidas = FormataHoraData(horasDevidas);
@@ -44,8 +85,6 @@ namespace DesafioIlia.Application.Services
 
             return relatorio;
         }
-
-        #region Metodos Auxiliares
 
         private string FormataHoraData(TimeSpan horaData)
         {
@@ -91,24 +130,8 @@ namespace DesafioIlia.Application.Services
                 }
             }
 
-            //horarios.ToList().ForEach(registro =>
-            //{
-            //    if (entradaFlag || primeiroHorario.Day != registro.DiaHora.Day)
-            //    {
-            //        primeiroHorario = registro.DiaHora;
-            //        entradaFlag = false;
-            //    }
-            //    else
-            //    {
-            //        contador = contador + registro.DiaHora.Subtract(primeiroHorario);
-            //        entradaFlag = true;
-            //    }
-            //});
-
             return contador;
         }
-
-        #endregion
     }
 }
 
