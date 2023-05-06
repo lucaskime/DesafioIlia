@@ -39,11 +39,13 @@ namespace DesafioIlia.Application.Services
         {
             _pontoValidation.GerarRelatorioValidate(anoMes);
 
-            DateTime.TryParseExact(anoMes, "yyyy-MM", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var outAnoMes);
+            DateTime.TryParseExact(anoMes, "yyyy-MM", CultureInfo.CurrentCulture, DateTimeStyles.AssumeUniversal, out var outAnoMes);
 
-            var registros = await _pontoRepository.ConsultarAsync(outAnoMes.Year, outAnoMes.Month);
+            var data = outAnoMes.ToUniversalTime();
+
+            var registros = await _pontoRepository.ConsultarAsync(data.Year, data.Month);
             var horarios = registros.Select(s => s.DiaHora).Order().ToList();
-            var horasDevidas = TimeSpan.FromHours(CalcularDiasUteis(outAnoMes.Year, outAnoMes.Month) * 8);
+            var horasDevidas = TimeSpan.FromHours(CalcularDiasUteis(data.Year, data.Month) * 8);
             var horasTrabalhadas = CalcularTempoTrabalhado(horarios);
 
             var horasExcedentes = horasTrabalhadas - horasDevidas;
@@ -51,7 +53,7 @@ namespace DesafioIlia.Application.Services
 
             return new RelatorioModel()
             {
-                Mes = outAnoMes.ToString("yyyy-MM"),
+                Mes = data.ToString("yyyy-MM"),
                 HorasDevidas = FormataHoraData(horasDevidas),
                 HorasTrabalhadas = FormataHoraData(horasTrabalhadas),
                 HorasExcedentes = FormataHoraData(horasExcedentes),
