@@ -39,7 +39,8 @@ Dentro do Visual Studio, Package Manager Console, digite:
 ```bash
 Update-Database
 ```
-
+ - Defina o projeto: DesafioIlia.Ports.API como Startup.
+ 
 Aperte F5
     
 ## API Reference
