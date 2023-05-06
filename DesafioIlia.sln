@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioIlia.Infra.IoC", "De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioIlia.Ports.API", "DesafioIlia.Ports.API\DesafioIlia.Ports.API.csproj", "{14B3FF90-4189-4130-A95A-45D20C2ACC7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioIlia.Tests", "DesafioIlia.Tests\DesafioIlia.Tests.csproj", "{35B60A23-D465-480B-9F18-C3BADA5F2F1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{14B3FF90-4189-4130-A95A-45D20C2ACC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14B3FF90-4189-4130-A95A-45D20C2ACC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14B3FF90-4189-4130-A95A-45D20C2ACC7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B60A23-D465-480B-9F18-C3BADA5F2F1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B60A23-D465-480B-9F18-C3BADA5F2F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B60A23-D465-480B-9F18-C3BADA5F2F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B60A23-D465-480B-9F18-C3BADA5F2F1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

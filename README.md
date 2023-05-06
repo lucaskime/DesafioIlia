@@ -32,6 +32,15 @@ Realizar clone do projeto.
 ```bash
 git clone https://github.com/lucaskime/DesafioIlia.git
 ```
+
+### 3. Visual Studio (.NET 7)
+
+Dentro do Visual Studio, Package Manager Console, digite:
+```bash
+Update-Database
+```
+
+Aperte F5
     
 ## API Reference
 
