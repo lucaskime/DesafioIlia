@@ -24,20 +24,11 @@ namespace DesafioIlia.Ports.API.Controllers
         /// <summary>
         /// Bater ponto
         /// </summary>
-        /// <returns>String</returns>
         /// <remarks>
-        /// Exemplo de body: 2018-08-22T08:00:00
-        ///
+        ///     Exemplo: 
         ///     {
-        ///       "dia": "2023-04-30",
-        ///       "horarios": [
-        ///         "08:00:00",
-        ///         "12:00:00",
-        ///         "13:00:00",
-        ///         "18:00:00"
-        ///       ]
+        ///       "dataHora": "2018-08-22T08:00:00"
         ///     }
-        ///
         /// </remarks>
         [HttpPost]
         [Route("v1/batidas")]
@@ -45,12 +36,12 @@ namespace DesafioIlia.Ports.API.Controllers
         [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MensagemModel), StatusCodes.Status409Conflict)]
-        public async Task<ActionResult> insereBatida(string? momento)
+        public async Task<ActionResult> insereBatida(MomentoModel momento)
         {
             try
             {
-                await _pontoService.AdicionarAsync(momento);
-                return new ObjectResult(new RegistroModel()) { StatusCode = StatusCodes.Status201Created };
+                var retorno = await _pontoService.AdicionarAsync(momento.dataHora);
+                return new ObjectResult(retorno) { StatusCode = StatusCodes.Status201Created };
             }
             catch (BadRequestException ex)
             {
@@ -70,7 +61,7 @@ namespace DesafioIlia.Ports.API.Controllers
         /// <summary>
         /// Folhas de Ponto
         /// </summary>
-        /// <param name="mes">2018-08</param>
+        /// <param name="mes">Exemplo: 2018-08</param>
         /// <returns></returns>
         [HttpGet]
         [Route("/v1/folhas-de-ponto/{mes}")]

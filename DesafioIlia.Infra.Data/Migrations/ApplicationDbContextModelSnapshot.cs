@@ -23,7 +23,7 @@ namespace DesafioIlia.Infra.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DesafioIlia.Domain.Entities.Ponto.Registro", b =>
+            modelBuilder.Entity("DesafioIlia.Domain.Entities.Registro", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

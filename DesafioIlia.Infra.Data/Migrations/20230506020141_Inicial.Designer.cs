@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DesafioIlia.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230502143300_Inicial")]
+    [Migration("20230506020141_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace DesafioIlia.Infra.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DesafioIlia.Domain.Entities.Ponto.Registro", b =>
+            modelBuilder.Entity("DesafioIlia.Domain.Entities.Registro", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -3,23 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioIlia.Domain", "DesafioIlia.Domain\DesafioIlia.Domain.csproj", "{B144B3FF-06D4-4692-A9A5-6BD9156BC7AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioIlia.Domain", "DesafioIlia.Domain\DesafioIlia.Domain.csproj", "{B144B3FF-06D4-4692-A9A5-6BD9156BC7AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioIlia.Application", "DesafioIlia.Application\DesafioIlia.Application.csproj", "{761F69DD-0A50-4253-86B2-C38838F67137}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioIlia.Application", "DesafioIlia.Application\DesafioIlia.Application.csproj", "{761F69DD-0A50-4253-86B2-C38838F67137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioIlia.Infra.Data", "DesafioIlia.Infra.Data\DesafioIlia.Infra.Data.csproj", "{467BCF3F-FEEC-42E0-AD92-F1A1815E3EBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioIlia.Infra.Data", "DesafioIlia.Infra.Data\DesafioIlia.Infra.Data.csproj", "{467BCF3F-FEEC-42E0-AD92-F1A1815E3EBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioIlia.Infra.IoC", "DesafioIlia.Infra.IoC\DesafioIlia.Infra.IoC.csproj", "{AA41D186-0165-4A2A-95D6-84EEAE99F171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioIlia.Infra.IoC", "DesafioIlia.Infra.IoC\DesafioIlia.Infra.IoC.csproj", "{AA41D186-0165-4A2A-95D6-84EEAE99F171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioIlia.Ports.API", "DesafioIlia.Ports.API\DesafioIlia.Ports.API.csproj", "{14B3FF90-4189-4130-A95A-45D20C2ACC7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioIlia.Ports.API", "DesafioIlia.Ports.API\DesafioIlia.Ports.API.csproj", "{14B3FF90-4189-4130-A95A-45D20C2ACC7E}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "angularapp", "Solution1\angularapp\angularapp.esproj", "{2B22F96B-695C-44D7-9E43-B424821088D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B144B3FF-06D4-4692-A9A5-6BD9156BC7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -42,5 +41,14 @@ Global
 		{14B3FF90-4189-4130-A95A-45D20C2ACC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14B3FF90-4189-4130-A95A-45D20C2ACC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14B3FF90-4189-4130-A95A-45D20C2ACC7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B22F96B-695C-44D7-9E43-B424821088D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B22F96B-695C-44D7-9E43-B424821088D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B22F96B-695C-44D7-9E43-B424821088D7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2B22F96B-695C-44D7-9E43-B424821088D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B22F96B-695C-44D7-9E43-B424821088D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B22F96B-695C-44D7-9E43-B424821088D7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
